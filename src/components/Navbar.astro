@@ -1,0 +1,185 @@
+---
+const navigations = {
+  images: [
+    { name: "480p (SD)", link: "img-480p" },
+    { name: "720p (HD)", link: "img-720p" },
+    { name: "1080p (FULL HD)", link: "img-1080p" },
+    { name: "2K", link: "img-2k" },
+    { name: "4K", link: "img-4k" },
+  ],
+  videos: [
+    { name: "480p (SD)", link: "vid-480p" },
+    { name: "720p (HD)", link: "vid-720p" },
+    { name: "1080p (FULL HD)", link: "vid-1080p" },
+    { name: "2K", link: "vid-2k" },
+    { name: "4K", link: "vid-4k" },
+  ],
+};
+---
+
+<nav class="flex justify-between items-center border relative z-50">
+  <div class="container">
+    <div class="flex justify-between items-center">
+      <div>
+        <a href="/" class="text-3xl font-bold py-2 uppercase text-black">
+          Testing Skripsi
+        </a>
+      </div>
+      <div class="flex items-center px-4">
+        <button
+          type="button"
+          class="block absolute right-3 px-2 py-1 lg:hidden"
+          id="toggle-nav-button"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+          </svg>
+        </button>
+        <div
+          class="p-3 absolute py-5 bg-white shadow-lg rounded-lg max-w-[150px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none transition-all invisible opacity-0 lg:visible lg:opacity-100"
+          id="nav-content"
+        >
+          <ul
+            class="flex flex-col gap-y-2 lg:flex-row lg:items-center md:gap-x-10"
+          >
+            <li class="hover:text-slate-700 pb-1 lg:pb-0 border-b lg:border-0">
+              <a href="/">Home</a>
+            </li>
+            <li
+              class="hover:text-slate-700 relative pb-1 lg:pb-0 border-b lg:border-0"
+              id="image-nav"
+            >
+              <button class="flex items-center space-x-1">
+                <span>Images</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-3.5 h-3.5 mt-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                </svg>
+              </button>
+              <div
+                class="border rounded bg-white w-36 max-w-md absolute top-full lg:mt-2 -ms-8 -left-full lg:ms-3 hidden"
+                id="image-dropdown"
+              >
+                <ul>
+                  {
+                    navigations.images.map((imageNav, _) => (
+                      <li>
+                        <a
+                          href={`/image/${imageNav.link}`}
+                          class="p-1.5 block border-b"
+                        >
+                          {imageNav.name}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </li>
+            <li
+              class="hover:text-slate-700 relative pb-1 lg:pb-0 border-b lg:border-0"
+              id="video-nav"
+            >
+              <button class="flex items-center space-x-1">
+                <span>Videos</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-3.5 h-3.5 mt-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                </svg>
+              </button>
+              <div
+                class="border rounded bg-white w-36 max-w-md absolute top-full lg:mt-2 -ms-8 -left-full lg:ms-3 hidden"
+                id="video-dropdown"
+              >
+                <ul>
+                  {
+                    navigations.videos.map((videoNav, _) => (
+                      <li>
+                        <a
+                          href={`/video/${videoNav.link}`}
+                          class="p-1.5 block border-b"
+                        >
+                          {videoNav.name}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleNavButton = document.getElementById("toggle-nav-button");
+    const navContent = document.getElementById("nav-content");
+    const imageNav = document.getElementById("image-nav");
+    const videoNav = document.getElementById("video-nav");
+    const imageDropdown = document.getElementById("image-dropdown");
+    const videoDropdown = document.getElementById("video-dropdown");
+
+    let isOpenToogleNav = false;
+    let isOpenImageNav = false;
+    let isOpenVideoNav = false;
+
+    toggleNavButton.addEventListener("click", () => {
+      isOpenToogleNav = !isOpenToogleNav;
+      navContent.classList.toggle("invisible", !isOpenToogleNav);
+      navContent.classList.toggle("opacity-0", !isOpenToogleNav);
+    });
+
+    imageNav.addEventListener("click", () => {
+      isOpenImageNav = !isOpenImageNav;
+      imageDropdown.classList.toggle("hidden", !isOpenImageNav);
+    });
+
+    videoNav.addEventListener("click", () => {
+      isOpenVideoNav = !isOpenVideoNav;
+      videoDropdown.classList.toggle("hidden", !isOpenVideoNav);
+    });
+
+    document.addEventListener("mousedown", (e) => {
+      if (!imageNav.contains(e.target)) {
+        isOpenImageNav = false;
+        imageDropdown.classList.add("hidden");
+      }
+      if (!videoNav.contains(e.target)) {
+        isOpenVideoNav = false;
+        videoDropdown.classList.add("hidden");
+      }
+    });
+  });
+</script>

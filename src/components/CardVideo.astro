@@ -1,0 +1,38 @@
+---
+const { widthVideo, heightVideo, data, poster } = Astro.props;
+---
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  {
+    data.map((item, _) => (
+      <div>
+        <video
+          class="rounded-sm aspect-video object-fill"
+          width={widthVideo}
+          height={heightVideo}
+          preload="none"
+          poster={`${import.meta.env.BASE_MEDIA_URL}/videos/${poster}`}
+          controls
+          muted
+        >
+          <source
+            src={`${import.meta.env.BASE_MEDIA_URL}/videos/${item.path_video}`}
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+        <div class="w-full">
+          <div class="flex justify-between items-center">
+            <h3 class="text-base font-semibold">{item.name}</h3>
+            <h3 class="text-sm truncate">Rating: {item.rating}</h3>
+          </div>
+          <div class="flex justify-between items-center">
+            <h3 class="text-base font-semibold">{item.area}</h3>
+            <h3 class="text-sm truncate">{item.review_date}</h3>
+          </div>
+          <p class="line-clamp-2">{item.review_text}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

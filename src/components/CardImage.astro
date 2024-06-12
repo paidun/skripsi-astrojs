@@ -1,0 +1,30 @@
+---
+const { widthImage, heightImage, data } = Astro.props;
+---
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  {
+    data.map((item, _) => (
+      <div>
+        <img
+          src={`${import.meta.env.BASE_MEDIA_URL}/images/${item.path_image}`}
+          alt={`Gambar ${item.name}`}
+          class="rounded"
+          width={widthImage}
+          height={heightImage}
+        />
+        <div class="w-full">
+          <div class="flex justify-between items-center">
+            <h3 class="text-base font-semibold">{item.name}</h3>
+            <h3 class="text-sm truncate">Rating: {item.rating}</h3>
+          </div>
+          <div class="flex justify-between items-center">
+            <h3 class="text-base font-semibold">{item.area}</h3>
+            <h3 class="text-sm truncate">{item.review_date}</h3>
+          </div>
+          <p class="line-clamp-2">{item.review_text}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

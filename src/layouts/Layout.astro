@@ -1,0 +1,26 @@
+---
+import Header from "../components/Header.astro";
+import Navbar from "../components/Navbar.astro";
+import NavbarCombination from "../components/NavbarCombination.astro";
+
+const { titlePage, type } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TESTING | {titlePage}</title>
+  </head>
+  <body>
+    <div>
+      {type === "Header" && <Header />}
+      {type === "Navbar" && <Navbar />}
+      {type === "Navbar Combination" && <NavbarCombination />}
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

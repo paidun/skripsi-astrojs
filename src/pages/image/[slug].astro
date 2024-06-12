@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LayoutMedia from "../../layouts/LayoutMedia.astro";
+import { getSettingMediaResolution } from "../../utils/mediaUtils";
+
+const { slug } = Astro.params;
+const res = await fetch(
+  `${import.meta.env.VITE_BASE_URL}/reviews/review-image/${slug}`,
+);
+const { data } = await res.json();
+const mediaInfo = getSettingMediaResolution(slug);
+---
+
+<Layout type="Navbar">
+  <LayoutMedia type="Gambar" resolution={mediaInfo.resolution}>
+    <div class="mt-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-5 mt-5">
+        {
+          data.map((item, _) => (
+            <img
+              src={`${import.meta.env.VITE_BASE_MEDIA_URL}/images/${item.path_image}`}
+              alt=""
+              width={mediaInfo.widthMedia}
+              height={mediaInfo.heightMedia}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </LayoutMedia>
+</Layout>
