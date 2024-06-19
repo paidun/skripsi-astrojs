@@ -1,0 +1,27 @@
+---
+import CardVideo from "../../../components/CardVideo.astro";
+import { getSettingMediaResolution } from "../../../utils/mediaUtils";
+import Layout from "../../../layouts/Layout.astro";
+import LayoutMedia from "../../../layouts/LayoutMedia.astro";
+
+const { slug } = Astro.params;
+const res = await fetch(
+  `${import.meta.env.VITE_BASE_URL}/reviews/review-combination-video/vid-${slug}`,
+);
+const { data } = await res.json();
+const mediaInfo = getSettingMediaResolution("vid-" + slug);
+const posterVideo = `poster-${mediaInfo.resolution}.png`;
+---
+
+<Layout type="Navbar Combination">
+  <LayoutMedia type="Kombinasi Video" resolution={mediaInfo.resolution}>
+    <div class="my-6">
+      <CardVideo
+        data={data}
+        widthImage={mediaInfo.widthMedia}
+        heightImage={mediaInfo.heightMedia}
+        poster={posterVideo}
+      />
+    </div>
+  </LayoutMedia>
+</Layout>

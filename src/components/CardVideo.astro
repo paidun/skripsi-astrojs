@@ -11,12 +11,12 @@ const { widthVideo, heightVideo, data, poster } = Astro.props;
           width={widthVideo}
           height={heightVideo}
           preload="none"
-          poster={`${import.meta.env.BASE_MEDIA_URL}/videos/${poster}`}
+          poster={`${import.meta.env.VITE_BASE_MEDIA_URL}/videos/${poster}`}
           controls
           muted
         >
           <source
-            src={`${import.meta.env.BASE_MEDIA_URL}/videos/${item.path_video}`}
+            src={`${import.meta.env.VITE_BASE_MEDIA_URL}/videos/${item.path_video}`}
             type="video/mp4"
           />
           Your browser does not support the video tag.

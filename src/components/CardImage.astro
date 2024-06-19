@@ -7,7 +7,7 @@ const { widthImage, heightImage, data } = Astro.props;
     data.map((item, _) => (
       <div>
         <img
-          src={`${import.meta.env.BASE_MEDIA_URL}/images/${item.path_image}`}
+          src={`${import.meta.env.VITE_BASE_MEDIA_URL}/images/${item.path_image}`}
           alt={`Gambar ${item.name}`}
           class="rounded"
           width={widthImage}

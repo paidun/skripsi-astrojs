@@ -1,0 +1,25 @@
+---
+import CardImage from "../../../components/CardImage.astro";
+import Layout from "../../../layouts/Layout.astro";
+import LayoutMedia from "../../../layouts/LayoutMedia.astro";
+import { getSettingMediaResolution } from "../../../utils/mediaUtils";
+
+const { slug } = Astro.params;
+const res = await fetch(
+  `${import.meta.env.VITE_BASE_URL}/reviews/review-combination-image/img-${slug}`,
+);
+const { data } = await res.json();
+const mediaInfo = getSettingMediaResolution("img-" + slug);
+---
+
+<Layout type="Navbar Combination">
+  <LayoutMedia type="Kombinasi Gambar" resolution={mediaInfo.resolution}>
+    <div class="my-6">
+      <CardImage
+        data={data}
+        widthImage={mediaInfo.widthMedia}
+        heightImage={mediaInfo.heightMedia}
+      />
+    </div>
+  </LayoutMedia>
+</Layout>
